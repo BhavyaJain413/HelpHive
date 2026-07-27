@@ -56,25 +56,21 @@ export default function TicketModal({ ticket, onClose }) {
                 </p>
 
                 {ticket.attachment && (
+                <>
+                    <h3>Attachment</h3>
 
-                    <>
-                        <h3>Attachment</h3>
-
-                        <a
-                            href={`http://localhost:3000/uploads/${ticket.attachment}`}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-
-                            <img
-                                src={`http://localhost:3000/uploads/${ticket.attachment}`}
-                                alt="Attachment"
-                                className="ticket-image"
-                            />
-
-                        </a>
-                    </>
-
+                    <a
+                    href={`https://helphive-api.onrender.com/uploads/${ticket.attachment}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    >
+                    <img
+                        src={`https://helphive-api.onrender.com/uploads/${ticket.attachment}`}
+                        alt="Attachment"
+                        className="ticket-image"
+                    />
+                    </a>
+                </>
                 )}
 
                 <button onClick={onClose}>
