@@ -26,25 +26,17 @@ export default function CreateTicket() {
     };
 
     const handleFileChange = (e) => {
-        const handleFileChange = (e) => {
+        const file = e.target.files[0];
 
-            const file = e.target.files[0];
+        if (!file) return;
 
-            if (!file) return;
+        if (file.size > 5 * 1024 * 1024) {
+            setError("Image size should be less than 5 MB.");
+            return;
+        }
 
-            if (file.size > 5 * 1024 * 1024) {
-
-                setError("Image size should be less than 5 MB.");
-
-                return;
-
-            }
-
-            setError("");
-
-            setAttachment(file);
-
-        };
+        setError("");
+        setAttachment(file);
     };
 
     const handleSubmit = async (e) => {
