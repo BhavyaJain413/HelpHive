@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  EMPLOYEE
+  ADMIN
+}
+
+enum Status {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Category {
+  SOFTWARE
+  HARDWARE
+  NETWORK
+  HR
+  OTHER
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(EMPLOYEE)
+  createdAt DateTime @default(now())
+
+  tickets   Ticket[]
+}
+
+model Ticket {
+  id          Int        @id @default(autoincrement())
+  ticketNumber  String     @unique
+
+  title       String
+  description String
+
+  attachment    String?
+
+  category    Category
+  priority    Priority   @default(MEDIUM)
+  status      Status     @default(OPEN)
+
+  createdAt   DateTime   @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  userId      Int
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
